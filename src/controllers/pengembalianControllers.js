@@ -90,6 +90,10 @@ const pengembalianController = {
                         {
                             model: User,
                             attributes: ['nama', 'email']
+                        },
+                        {
+                            model: KartuPustaka,
+                            attributes: ['nomor_resi']
                         }
                     ]
                 }]

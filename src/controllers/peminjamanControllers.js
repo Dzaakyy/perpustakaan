@@ -61,7 +61,7 @@ const peminjamanController = {
         try {
             const peminjaman = await Peminjaman.findAll({
                 include: [
-                    { model: User, attributes: ['email'] },
+                    { model: User, attributes: ['email', 'nama'] },
                     { model: Buku, attributes: ['judul'] },
                     { model: KartuPustaka, attributes: ['nomor_resi'] }
                 ]
@@ -79,7 +79,7 @@ const peminjamanController = {
         try {
             const peminjaman = await Peminjaman.findByPk(req.params.id, {
                 include: [
-                    { model: User, attributes: ['email'] },
+                    { model: User, attributes: ['email', 'nama'] },
                     { model: Buku, attributes: ['judul'] },
                     { model: KartuPustaka, attributes: ['nomor_resi'] }
                 ]
