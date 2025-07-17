@@ -4,11 +4,11 @@ const kategoriController = {
     createKategori: async (req, res) => {
         try {
             const { nama_kategori, deskripsi } = req.body;
-            const newRole = await Kategori.create({
+            const newCategory = await Kategori.create({
                 nama_kategori: nama_kategori,
                 deskripsi: deskripsi
             });
-            res.status(201).json({ msg: "Kategori berhasil dibuat", data: newRole });
+            res.status(201).json({ msg: "Kategori berhasil dibuat", data: newCategory });
 
         } catch (error) {
             res.status(500).json({ msg: "Terjadi kesalahan pada server", error: error.message });
@@ -27,7 +27,7 @@ const kategoriController = {
             kategori.deskripsi = req.body.deskripsi;
 
             await kategori.save();
-            res.status(200).json({ msg: "Kategori berhasil diperbarui", data: role });
+            res.status(200).json({ msg: "Kategori berhasil diperbarui", data: kategori });
         } catch (error) {
             res.status(500).json({ msg: "Terjadi kesalahan pada server", error: error.message });
         }

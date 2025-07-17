@@ -14,6 +14,10 @@ const Buku = db.define('buku', {
         type: DataTypes.STRING(100),
         allowNull: false,
     },
+    sinopsis: {
+        type: DataTypes.STRING(255),
+        allowNull: false,
+    },
     penulis: {
         type: DataTypes.STRING(100),
         allowNull: false,

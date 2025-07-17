@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
 import db from '../config/dbconfig.js';
-import User from './userModels.js'; 
+import User from './userModels.js';
 
 const { DataTypes } = Sequelize;
 
@@ -31,12 +31,13 @@ const KartuPustaka = db.define('kartu_pustaka', {
         allowNull: false,
     },
     status: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM('Berlaku', 'Tidak Berlaku'),
         allowNull: false,
+        defaultValue: 'Berlaku'
     },
 }, {
     freezeTableName: true,
-    timestamps: false 
+    timestamps: false
 });
 
 KartuPustaka.belongsTo(User, { foreignKey: 'user_id' });

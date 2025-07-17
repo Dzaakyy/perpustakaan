@@ -59,7 +59,7 @@ const kartuPustakaController = {
             const kartu = await KartuPustaka.findByPk(req.params.id, {
                  include: [{
                     model: User,
-                    attributes: ['username', 'email']
+                    attributes: ['nama', 'email']
                 }]
             });
             if (!kartu) {

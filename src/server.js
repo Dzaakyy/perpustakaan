@@ -9,6 +9,7 @@ import peminjamanRoutes from './routes/peminjamanRoutes.js'
 import pengembalianRoutes from './routes/pengembalianRoutes.js'
 import dotenv from 'dotenv';
 import cors from 'cors';
+import db from './config/dbconfig.js';
 
 dotenv.config();
 const app = express();
@@ -60,7 +61,16 @@ app.use('*', (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server is running on http://0.0.0.0:${PORT}`);
-  console.log('CORS enabled for specified origins');
+app.listen(PORT, '0.0.0.0', async () => { 
+    try {
+        await db.authenticate();
+        console.log('Koneksi ke database berhasil.');
+        
+        await db.sync({ alter: true });
+        console.log('Semua model telah disinkronkan.');
+
+    } catch (error) {
+        console.error('Tidak dapat terhubung ke database:', error);
+    }
+    console.log(`Server is running on http://0.0.0.0:${PORT}`);
 });

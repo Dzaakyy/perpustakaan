@@ -2,7 +2,7 @@ import { Sequelize } from "sequelize";
 import db from '../config/dbconfig.js';
 import Buku from "./bukuModels.js";
 import KartuPustaka from "./kartuPustakaModels.js";
-import User from './userModels.js'; 
+import User from './userModels.js';
 
 const { DataTypes } = Sequelize;
 
@@ -32,26 +32,26 @@ const Peminjaman = db.define('peminjaman', {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: KartuPustaka, 
+            model: KartuPustaka,
             key: 'id_kartu_pustaka'
         }
     },
     tanggal_pinjam: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false,
     },
-    tanggal_kembali: { 
-        type: DataTypes.DATE,
-        allowNull: true, 
+    tanggal_kembali: {
+        type: DataTypes.DATEONLY,
+        allowNull: true,
     },
     status: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM('Dipinjam', 'Dikembalikan', 'Terlambat'),
         allowNull: false,
         defaultValue: 'Dipinjam'
     },
 }, {
     freezeTableName: true,
-    timestamps: false 
+    timestamps: false
 });
 
 Peminjaman.belongsTo(User, { foreignKey: 'user_id' });

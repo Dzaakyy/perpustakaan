@@ -6,12 +6,13 @@ import path from 'path';
 const bukuController = {
     createBuku: async (req, res) => {
         try {
-            const { judul, penulis, penerbit, kategori_id, tahun_terbit, stok } = req.body;
+            const { judul, sinopsis, penulis, penerbit, kategori_id, tahun_terbit, stok } = req.body;
             
             const images = req.files ? req.files.map(file => file.filename) : [];
 
             const newBuku = await Buku.create({
                 judul,
+                sinopsis,
                 penulis,
                 penerbit,
                 kategori_id,
@@ -39,7 +40,7 @@ const bukuController = {
                 return res.status(404).json({ msg: `Buku dengan ID ${req.params.id} tidak ditemukan` });
             }
 
-            const { judul, penulis, penerbit, kategori_id, tahun_terbit, stok } = req.body;
+            const { judul, sinopsis, penulis, penerbit, kategori_id, tahun_terbit, stok } = req.body;
             let newImages = buku.images;
 
             if (req.files && req.files.length > 0) {
@@ -57,6 +58,7 @@ const bukuController = {
 
             await buku.update({
                 judul: judul || buku.judul,
+                sinopsis: sinopsis || buku.sinopsis,
                 penulis: penulis || buku.penulis,
                 penerbit: penerbit || buku.penerbit,
                 kategori_id: kategori_id || buku.kategori_id,

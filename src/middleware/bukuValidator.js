@@ -10,6 +10,7 @@ const handleValidationErrors = (req, res, next) => {
 
 export const validateBuku = [
     body('judul').notEmpty().withMessage('Judul tidak boleh kosong.'),
+    body('sinopsis').notEmpty().withMessage('Sinopsis tidak boleh kosong.'),
     body('penulis').notEmpty().withMessage('Penulis tidak boleh kosong.'),
     body('penerbit').notEmpty().withMessage('Penerbit tidak boleh kosong.'),
     body('kategori_id').notEmpty().withMessage('Kategori ID tidak boleh kosong.').isInt().withMessage('Kategori ID harus berupa angka.'),
@@ -20,6 +21,7 @@ export const validateBuku = [
 
 export const validateBukuUpdate = [
     body('judul').optional().notEmpty().withMessage('Judul tidak boleh kosong.'),
+    body('sinopsis').optional().notEmpty().withMessage('Sinopsi tidak boleh kosong.'),
     body('penulis').optional().notEmpty().withMessage('Penulis tidak boleh kosong.'),
     body('penerbit').optional().notEmpty().withMessage('Penerbit tidak boleh kosong.'),
     body('kategori_id').optional().isInt().withMessage('Kategori ID harus berupa angka.'),

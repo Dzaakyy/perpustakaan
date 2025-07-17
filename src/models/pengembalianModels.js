@@ -26,6 +26,11 @@ const Pengembalian = db.define('pengembalian', {
         type: DataTypes.STRING(255),
         allowNull: false,
     },
+        denda: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+    },
 }, {
     freezeTableName: true,
     timestamps: false 

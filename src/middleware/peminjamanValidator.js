@@ -23,7 +23,6 @@ const validateDateFormat = (value, { req, location, path }) => {
 
 export const validatePeminjaman = [
     body('buku_id').notEmpty().withMessage('Buku ID tidak boleh kosong.').isInt().withMessage('Buku ID harus berupa angka.'),
-    body('kartu_pustaka_id').notEmpty().withMessage('Kartu Pustaka ID tidak boleh kosong.').isInt().withMessage('Kartu Pustaka ID harus berupa angka.'),
     body('tanggal_pinjam').notEmpty().withMessage('Tanggal pinjam tidak boleh kosong.').custom(validateDateFormat),
     body('tanggal_kembali').notEmpty().withMessage('Tanggal kembali tidak boleh kosong.').custom(validateDateFormat),
     handleValidationErrors
