@@ -31,8 +31,8 @@ const Pengembalian = db.define('pengembalian', {
     timestamps: false 
 });
 
-Pengembalian.belongsTo(Role, { foreignKey: 'peminjaman_id' });
-Peminjaman.hasMany(User, { foreignKey: 'peminjaman_id' });
+Pengembalian.belongsTo(Peminjaman, { foreignKey: 'peminjaman_id' });
+Peminjaman.hasMany(Pengembalian, { foreignKey: 'peminjaman_id' });
 
 export default Pengembalian;
 (async()=>{

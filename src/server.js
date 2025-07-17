@@ -3,6 +3,10 @@ import cookieParser from 'cookie-parser';
 import roleRoutes from './routes/roleRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import kategoriRoutes from './routes/kategoriRoutes.js';
+import bukuRoutes from './routes/bukuRoutes.js';
+import kartuPustakaRoutes from './routes/kartuPustakaRoutes.js';
+import peminjamanRoutes from './routes/peminjamanRoutes.js'
+import pengembalianRoutes from './routes/pengembalianRoutes.js'
 import dotenv from 'dotenv';
 import cors from 'cors';
 
@@ -28,6 +32,8 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use('/uploads_buku', express.static('uploads_buku'));
+
 app.use((req, res, next) => {
   console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
   next();
@@ -37,6 +43,11 @@ app.use((req, res, next) => {
 app.use('/api', roleRoutes);
 app.use('/api', userRoutes);
 app.use('/api', kategoriRoutes);
+app.use('/api', bukuRoutes);
+app.use('/api', kartuPustakaRoutes);
+app.use('/api', peminjamanRoutes);
+app.use('/api', pengembalianRoutes
+);
 
 app.use((err, req, res, next) => {
   console.error('Error terdeteksi:', err.message);

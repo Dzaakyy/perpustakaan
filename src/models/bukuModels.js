@@ -38,13 +38,17 @@ const Buku = db.define('buku', {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
+    images: {
+        type: DataTypes.STRING(255),
+        allowNull: false,
+    },
 }, {
     freezeTableName: true,
     timestamps: false,
 });
 
 Buku.belongsTo(Kategori, { foreignKey: 'kategori_id' });
-Kategori.hasMany(Kategori, { foreignKey: 'kategori_id' });
+Kategori.hasMany(Buku, { foreignKey: 'kategori_id' });
 
 export default Buku;
 (async () => {
