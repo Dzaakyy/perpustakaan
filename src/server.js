@@ -2,6 +2,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import roleRoutes from './routes/roleRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import kategoriRoutes from './routes/kategoriRoutes.js';
 import dotenv from 'dotenv';
 import cors from 'cors';
 
@@ -35,6 +36,7 @@ app.use((req, res, next) => {
 
 app.use('/api', roleRoutes);
 app.use('/api', userRoutes);
+app.use('/api', kategoriRoutes);
 
 app.use((err, req, res, next) => {
   console.error('Error terdeteksi:', err.message);
