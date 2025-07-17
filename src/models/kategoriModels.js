@@ -11,18 +11,18 @@ const Kategori = db.define('kategori', {
     },
     nama_kategori: {
         type: DataTypes.STRING(100),
-        allowNull:false,
+        allowNull: false,
     },
     deskripsi: {
         type: DataTypes.STRING(255),
         allowNull: false
     },
 }, {
-     freezeTableName: true,
+    freezeTableName: true,
     timestamps: false,
 });
 
 export default Kategori;
-(async()=>{
+(async () => {
     await db.sync();
 })();
