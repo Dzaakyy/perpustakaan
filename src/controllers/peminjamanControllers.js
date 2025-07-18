@@ -5,7 +5,7 @@ import KartuPustaka from "../models/kartuPustakaModels.js";
 import db from "../config/dbconfig.js";
 
 const peminjamanController = {
-   createPeminjaman: async (req, res) => {
+    createPeminjaman: async (req, res) => {
         const t = await db.transaction();
         try {
             const user_id = req.user.userId;
@@ -20,8 +20,8 @@ const peminjamanController = {
             const newKartuPustaka = await KartuPustaka.create({
                 user_id: user_id,
                 nomor_resi: `BUKTI-${Date.now()}`,
-                tanggal_diterbitkan: formattedTanggalPinjam, 
-                berlaku_sampai: formattedTanggalKembali,  
+                tanggal_diterbitkan: formattedTanggalPinjam,
+                berlaku_sampai: formattedTanggalKembali,
                 status: 'Berlaku'
             }, { transaction: t });
 
@@ -91,7 +91,49 @@ const peminjamanController = {
         } catch (error) {
             res.status(500).json({ msg: "Terjadi kesalahan pada server", error: error.message });
         }
-    }
+    },
+
+
+    getRiwayatPeminjamanByUser: async (req, res) => {
+        try {
+            const user_id = req.user.userId;
+
+            const riwayat = await Peminjaman.findAll({
+                where: { user_id: user_id },
+                include: [
+                    {
+                        model: Buku,
+                        attributes: ['judul', 'penulis', 'images']
+                    },
+                    {
+                        model: KartuPustaka,
+                        attributes: ['nomor_resi']
+                    }
+                ],
+                order: [['tanggal_pinjam', 'DESC']]
+            });
+
+            if (riwayat.length === 0) {
+                return res.status(200).json([]);
+            }
+
+            const baseUrl = `${req.protocol}://${req.get('host')}`;
+            const riwayatWithImageUrls = riwayat.map(item => {
+                const itemData = item.toJSON();
+                if (itemData.buku && itemData.buku.images) {
+                    const imageNames = JSON.parse(itemData.buku.images || '[]');
+                    itemData.buku.images = imageNames.length > 0 ? `${baseUrl}/uploads_buku/${encodeURIComponent(imageNames[0])}` : '/placeholder.jpg';
+                }
+                return itemData;
+            });
+
+            res.status(200).json(riwayatWithImageUrls);
+
+        } catch (error) {
+            res.status(500).json({ msg: "Terjadi kesalahan pada server", error: error.message });
+        }
+    },
+
 };
 
 export default peminjamanController;
