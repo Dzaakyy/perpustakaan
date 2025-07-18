@@ -49,7 +49,14 @@ const peminjamanController = {
             });
 
             await t.commit();
-            res.status(201).json({ msg: "Peminjaman berhasil dicatat", data: newPeminjaman });
+            const peminjamanLengkap = await Peminjaman.findByPk(newPeminjaman.id_peminjaman, {
+                include: [{
+                    model: KartuPustaka,
+                    attributes: ['nomor_resi']
+                }]
+            });
+
+            res.status(201).json({ msg: "Peminjaman berhasil dicatat", data: peminjamanLengkap });
 
         } catch (error) {
             await t.rollback();
